@@ -149,9 +149,75 @@ class DisplayPictureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int _selectedIndex = 0;
+    void _onItemTapped(int index) {
+      _selectedIndex = index;
+      if (index == 1) {
+        Navigator.of(context).pushNamed('reviewPage');
+      } else {
+        Navigator.of(context).pushNamed('CameraPage');
+      }
+    }
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
-      body: Image.file(File(imagePath)),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        toolbarHeight: 60, // Set this height
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFF1F2C5C),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 40,
+              ),
+              Text('Confirm Picture',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Inter',
+                    fontSize: 22,
+                    color: Color(0XFFFFC032),
+                  )),
+            ],
+          ),
+        ),
+      ),
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            Image.file(File(imagePath)),
+          ]),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF1F2C5C),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              "lib/assets/Retake.png",
+              width: 40,
+              height: 40,
+            ),
+            label: 'RETAKE',
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              "lib/assets/Upload.png",
+              width: 40,
+              height: 40,
+            ),
+            label: 'UPLOAD',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
