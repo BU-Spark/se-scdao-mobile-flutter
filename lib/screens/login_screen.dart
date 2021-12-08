@@ -1,43 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scdao_mobile/constants/color_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:convert';
-import 'dart:io';
+import 'package:scdao_mobile/models/token.dart';
+import 'package:scdao_mobile/repositories/login_repository.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
-}
-
-final loginRepositoryProvider =
-    Provider<LoginRepository>((ref) => LoginRepository());
-
-class LoginRepository {
-  var url = Uri.parse("http://192.168.0.44:8888/api/token");
-  Future<http.Response> login(String username, String password) async {
-    Map<String, String> bodyParams = new Map();
-    bodyParams["username"] = username;
-    bodyParams["password"] = password;
-    Map<String, String> headersMap = new Map();
-    headersMap["content-type"] = "application/x-www-form-urlencoded";
-
-    final http.Response res = await http
-        .post(url, headers: headersMap, body: bodyParams, encoding: Utf8Codec())
-        .then((res) {
-      if (res.statusCode == 200) {
-        print(res.body);
-        return res;
-      } else {
-        print("error");
-        return res;
-      }
-    });
-
-    return res;
-  }
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
@@ -56,8 +30,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    http.Response res;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white.withOpacity(0),
@@ -171,19 +143,36 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             SizedBox(
               height: 25.0,
             ),
+            Consumer(
+              builder: (context, ref, child) {
+                return ref.watch(loginStateProvider).when(
+                  data: (data) {
+                    log(data.token);
+                    Future.delayed(Duration.zero, () {
+                      Navigator.of(context).pushNamed('DocumentPage');
+                    });
+                    return Text("Login Sucess");
+                  },
+                  error: (error, stackTrace) {
+                    log(error.toString());
+                    return Text("Login Error");
+                  },
+                  loading: () {
+                    log("loading");
+                    return CircularProgressIndicator();
+                  },
+                );
+              },
+            ),
             TextButton(
-              onPressed: () async {
+              onPressed: () {
                 setState(() {
                   _validate = _text.text.isEmpty;
                   _emailvalidate = _emailtext.text.isEmpty;
                 });
-
-                res = await ref
-                    .read(loginRepositoryProvider)
+                ref
+                    .read(loginStateProvider.notifier)
                     .login(_text.text, _emailtext.text);
-
-                Navigator.of(context).pushNamed('DocumentPage');
-                print("Yes!!");
               },
               child: Text(
                 "Log In",
