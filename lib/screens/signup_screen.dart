@@ -78,7 +78,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               height: 50,
             ),
             Image(
-              image: AssetImage("lib/assets/scdao-logo.png"),
+              image: AssetImage("lib/assets/ff-logo.png"),
               height: 125.0,
             ),
             SizedBox(

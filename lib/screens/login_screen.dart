@@ -43,7 +43,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               height: 75,
             ),
             Image(
-              image: AssetImage("lib/assets/scdao-logo.png"),
+              image: AssetImage("lib/assets/ff-logo.png"),
               height: 125.0,
             ),
             SizedBox(
@@ -155,6 +155,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   },
                   error: (error, stackTrace) {
                     log(error.toString());
+                    // To allow login without API
+                    // Future.delayed(Duration.zero, () {
+                    //   Navigator.of(context).pushNamed('DocumentPage');
+                    // });
                     return Text("Login Error");
                   },
                   loading: () {

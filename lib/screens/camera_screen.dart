@@ -72,7 +72,6 @@ class CameraScreenState extends State<CameraScreen> {
           ),
         ),
         body: Column(children: [
-          SizedBox(height: 60),
           FutureBuilder<void>(
             future: _initializeControllerFuture,
             builder: (context, snapshot) {
@@ -188,9 +187,6 @@ class DisplayPictureScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: 50,
-            ),
             Image.file(File(imagePath)),
           ]),
       bottomNavigationBar: BottomNavigationBar(

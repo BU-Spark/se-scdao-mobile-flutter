@@ -8,7 +8,7 @@ class StartScreen extends StatelessWidget {
       body: Container(
         child: Center(
           child: Image(
-            image: AssetImage("lib/assets/scdao-logo.png"),
+            image: AssetImage("lib/assets/ff-logo.png"),
           ),
         ),
         decoration: BoxDecoration(color: kscdaoBlue),

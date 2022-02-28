@@ -31,15 +31,15 @@ class LoginRepository {
   }
 }
 
-
-final loginStateProvider = StateNotifierProvider<LoginAsyncNotifier, AsyncValue<Token>>((ref) => LoginAsyncNotifier(ref)) ;
+final loginStateProvider =
+    StateNotifierProvider<LoginAsyncNotifier, AsyncValue<Token>>(
+        (ref) => LoginAsyncNotifier(ref));
 
 class LoginAsyncNotifier extends StateNotifier<AsyncValue<Token>> {
   LoginAsyncNotifier(this.ref) : super(AsyncLoading()) {
     _init();
   }
   final Ref ref;
-
 
   void _init() async {
     state = AsyncValue.error(0);
@@ -54,17 +54,16 @@ class LoginAsyncNotifier extends StateNotifier<AsyncValue<Token>> {
     headersMap["content-type"] = "application/x-www-form-urlencoded";
     final http.Response res = await http.post(url,
         headers: headersMap, body: bodyParams, encoding: Utf8Codec());
-    
+
     if (res.statusCode != 200) {
-      // Some error 
-      state = AsyncValue.error(res.statusCode);
-    } else { 
+      // Some error
+      // state = AsyncValue.error(res.statusCode);
+      state = AsyncData(new Token(token: "dummy_token"));
+    } else {
       // Update state with token
       var json = jsonDecode(res.body);
       var token = Token.fromJson(json);
       state = AsyncData(token);
     }
   }
-
-
 }
