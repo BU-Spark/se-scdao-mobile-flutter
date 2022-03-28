@@ -11,6 +11,7 @@ import 'package:scdao_mobile/screens/Privacy/change_username.dart';
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:camera/camera.dart';
+import 'package:scdao_mobile/widgets/forms.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         'privacyPage': (_) => PrivacyScreen(),
         'UsernamePage': (_) => UsernameScreen(),
         'PasswordPage': (_) => PasswordScreen(),
+        'FormPage': (_) => DynamicForm(),
       },
     );
   }

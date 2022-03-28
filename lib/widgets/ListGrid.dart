@@ -1,8 +1,6 @@
 import 'dart:core';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scdao_mobile/widgets/forms.dart';
 
 class ContentList extends StatefulWidget {
   final bool isDescending;
@@ -39,7 +37,9 @@ class _ContentListState extends State<ContentList> {
           title: Text(widget.isDescending
               ? descendingList[index]
               : ascendingList[index]),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed('FormPage');
+          },
         ),
       ),
     );
