@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class DynamicForm extends StatefulWidget {
@@ -6,37 +8,13 @@ class DynamicForm extends StatefulWidget {
 }
 
 class _DynamicFormState extends State<DynamicForm> {
-  late int _count;
-
-  @override
-  void initState() {
-    super.initState();
-    _count = 0;
-  }
+  List<String> mock_form = ['docket', 'defen_name', 'defen_DOB', 'defen_abr'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dynamic Form'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () async {
-              setState(() {
-                _count++;
-              });
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () async {
-              setState(() {
-                _count = 0;
-              });
-            },
-          )
-        ],
+        title: Text('Form'),
       ),
       body: Container(
           padding: const EdgeInsets.all(20.0),
@@ -45,9 +23,9 @@ class _DynamicFormState extends State<DynamicForm> {
               Flexible(
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: _count,
+                  itemCount: mock_form.length,
                   itemBuilder: (context, index) {
-                    return _row(index);
+                    return _row(mock_form[index]);
                   },
                 ),
               )
@@ -56,10 +34,10 @@ class _DynamicFormState extends State<DynamicForm> {
     );
   }
 
-  _row(int index) {
+  _row(String string) {
     return Row(
       children: [
-        Text('ID: $index'),
+        Text('$string : '),
         SizedBox(width: 30),
         Expanded(
           child: TextFormField(),
