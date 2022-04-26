@@ -19,7 +19,7 @@ class _viewDocumentScreenState extends State<viewDocumentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Document View"),
+          title: Text("My Document View"),
           centerTitle: true,
         ),
         body: Container(
