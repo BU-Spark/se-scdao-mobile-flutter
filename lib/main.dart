@@ -3,6 +3,7 @@ import 'package:scdao_mobile/screens/signup_screen.dart';
 import 'package:scdao_mobile/screens/login_screen.dart';
 import 'package:scdao_mobile/screens/document_screen.dart';
 import 'package:scdao_mobile/screens/camera_screen.dart';
+import 'package:scdao_mobile/screens/start_screen.dart';
 import 'package:scdao_mobile/screens/view_document_screen.dart';
 import 'dart:async';
 
@@ -21,9 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginScreen(),
+      home: StartScreen(),
       routes: {
         'loginPage': (_) => LoginScreen(),
+        'StartPage': (_) => StartScreen(),
         'SignupPage': (_) => SignupScreen(),
         'DocumentPage': (_) => DocumentScreen(),
         'ViewDocumentPage': (_) => viewDocumentScreen(),
