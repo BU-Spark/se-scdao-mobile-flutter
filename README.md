@@ -1,6 +1,4 @@
-# scdao_mobile
-
-A new Flutter project.
+# SCDAO Fairfax County District Attorney's Office
 
 ## Getting Started
 
